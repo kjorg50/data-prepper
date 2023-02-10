@@ -16,13 +16,13 @@ services:
     depends_on:
       - opendistro-for-elasticsearch
   otel-collector:
-    container_name: otel-collector
-    image: otel/opentelemetry-collector:0.24.0
-    command: [ "--config=/etc/otel-collector-config.yml" ]
+    container_name: otel-collector-contrib
+    image: otel/opentelemetry-collector-contrib:0.60.0
+    # command: [ "--config=/etc/otel-collector-config.yml" ]
     working_dir: "/project"
     volumes:
       - ${PWD}/:/project
-      - ./otel-collector-config.yml:/etc/otel-collector-config.yml
+      - ./otel-collector-config-elastic-export.yml:/etc/otelcol-contrib/config.yml
       - ../demo/demo-data-prepper.crt:/etc/demo-data-prepper.crt
     ports:
       - "14250:14250"

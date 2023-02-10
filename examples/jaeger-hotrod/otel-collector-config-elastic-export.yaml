@@ -1,0 +1,22 @@
+receivers:
+  jaeger:
+    protocols:
+      grpc:
+
+exporters:
+  logging:
+    loglevel: debug
+
+  elasticsearch/trace:
+    endpoints: [https://node-0.example.com:9200]
+    user: admin
+    password: admin
+    api_key: 
+    tls:
+      insecure_skip_verify: true
+
+service:
+  pipelines:
+    traces:
+      receivers: [jaeger]
+      exporters: [elasticsearch/trace]
